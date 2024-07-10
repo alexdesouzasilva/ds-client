@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.devsenior.ds_client.dto.ClientDTO;
 import br.com.devsenior.ds_client.services.ClientService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -40,7 +41,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto) {
         dto = service.insert(dto);
         // Captura URI corrente: http://localhost:8080/clients
         // Adiciona o path /id retornado de dto: http://localhost:8080/clients/2
@@ -51,7 +52,7 @@ public class ClientController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> update(@Valid @PathVariable Long id, @RequestBody ClientDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
